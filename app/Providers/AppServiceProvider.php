@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Helpers\DBHelper;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -43,6 +45,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        if (App::environment('production')) {
+            URL::forceScheme('https');
+            $this->app['request']->server->set('HTTPS', true);
+        }
     }
 
     /**

@@ -5,8 +5,6 @@ namespace App\Providers;
 use Illuminate\Routing\Router;
 use App\Models\Contact\Contact;
 use App\Services\Instance\IdHasher;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\URL;
 use App\Exceptions\WrongIdException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -32,10 +30,6 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        if (App::environment('production')) {
-            URL::forceScheme('https');
-        }
 
         Route::bind('contact', function ($value) {
             // In case the user is logged out
